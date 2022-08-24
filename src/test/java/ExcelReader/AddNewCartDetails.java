@@ -241,7 +241,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
     }
 
     public static void clickSaveShipping() throws InterruptedException {
-        driver.findElement(By.xpath("(//button[@class='sc-kDDrLX crBOCu'])[2]")).click();
+        driver.findElement(By.xpath("(//button[@class='sc-kDDrLX crBOCu'])[3]")).click();
         System.out.println("Save Shipping Clicked");
         Thread.sleep(5000);
         //(//button[@class="sc-kDDrLX crBOCu"])[2]

@@ -144,16 +144,13 @@ public class ExcelReaderTest {
 
         driver.quit();*/
         loginNExcelRead();
-
-
     }
 
     public static void loginNExcelRead() throws InterruptedException, IOException {
-
         int rowCount = 0;
 
         // Read Excel file path
-        String excelPath = "./data/TestData.xlsx";
+        String excelPath = "./data/TestData1.xlsx";
         // Excel Sheet Name
         String sheetName = "ExcelReader";
         // Create object from AddNewCartDetails Class
@@ -165,7 +162,6 @@ public class ExcelReaderTest {
         XSSFSheet sheet = workbook.getSheet(sheetName);
         // get the count of rows in the sheet
         rowCount = sheet.getPhysicalNumberOfRows();
-
         // Open Browser
 //        System.setProperty("webdriver.chrome.driver","C:\\Users\\SankaKodda\\Downloads\\Commerce7BM\\Commerce7BM\\chromedriver_win32\\chromedriver.exe");
 //        WebDriver driver = new ChromeDriver();
@@ -183,7 +179,6 @@ public class ExcelReaderTest {
 
         // Open URL
         driver.get("https://borough-markets.admin.platform.commerce7.com/login");
-
 
         // Maximise the Browser
         driver.manage().window().maximize();
@@ -226,8 +221,6 @@ public class ExcelReaderTest {
         // x --> index of the iteration
         IntStream.range(0, rowCount).forEach(
                 rowNum -> {
-
-
                     try {
                         // Excel sheet formatter
                         DataFormatter formatter = new DataFormatter();
@@ -237,6 +230,7 @@ public class ExcelReaderTest {
                         String price = formatter.formatCellValue(sheet.getRow(rowNum).getCell(3)).toString();
                         String oderNumber = formatter.formatCellValue(sheet.getRow(rowNum).getCell(4)).toString();
                         String externalOrderNumber = formatter.formatCellValue(sheet.getRow(rowNum).getCell(5)).toString();
+                        String date = formatter.formatCellValue(sheet.getRow(rowNum).getCell(6)).toString();
                         System.out.println(email);
 
                         String previousEmail = "";
@@ -267,22 +261,24 @@ public class ExcelReaderTest {
                             return;
                         } else {
                             System.out.println("test4");
-                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber, driver, nextEmail, nextOrderNumber);
+                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber,date, driver, nextEmail, nextOrderNumber);
 
                         }
 
                         Thread.sleep(4000);
 //                        newOrder();
 
-                            //Click on Store Tab
-                            driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
-                            System.out.println("click store button");
-                            Thread.sleep(5000);
+                        //Click on Store Tab
+                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
+                        System.out.println("click store button");
+                        Thread.sleep(5000);
 //
-                            //Click on Add New Button
-                            driver.findElement(By.xpath("//div[@class='sc-bgA-dc eafPRL']")).click();
-                            System.out.println("click add new button");
-                            Thread.sleep(7000);
+                        //Click on Add New Order Button
+//                            driver.findElement(By.xpath("//div[@class='sc-bgA-dc eafPRL']")).click();
+                        //a[@class='sc-kDDrLX crBOCu']
+                        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+                        System.out.println("click add new button");
+                        Thread.sleep(7000);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -296,10 +292,7 @@ public class ExcelReaderTest {
     public static void newOrder() throws InterruptedException {
         storeTab();
         addNewButton();
-
-
     }
-
     public static void excelReader() {
 
     }
@@ -330,7 +323,6 @@ public class ExcelReaderTest {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver(options);
 //        driver = new ChromeDriver();
-
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }

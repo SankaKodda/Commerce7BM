@@ -266,7 +266,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void orderNote(String externalOrderNumber,String date) throws InterruptedException {
         driver.findElement(By.xpath("//textarea[@id='content']")).clear();
-        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys(externalOrderNumber);
+        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys(externalOrderNumber+"\n");
         driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys(date);
         System.out.println("Add Order Note");
         Thread.sleep(5000);

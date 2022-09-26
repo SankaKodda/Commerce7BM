@@ -279,16 +279,13 @@ public class ExcelReaderTest {
                         driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
                         System.out.println("click add new button");
                         Thread.sleep(7000);
-
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
         );
-
         driver.quit();
     }
-
     public static void newOrder() throws InterruptedException {
         storeTab();
         addNewButton();

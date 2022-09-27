@@ -150,9 +150,9 @@ public class ExcelReaderTest {
         int rowCount = 0;
 
         // Read Excel file path
-        String excelPath = "./data/TestData1.xlsx";
+        String excelPath = "./data/TestData2.xlsx";
         // Excel Sheet Name
-        String sheetName = "ExcelReader";
+        String sheetName = "OldUserName_ReplacedNewProducts";
         // Create object from AddNewCartDetails Class
         AddNewCartDetails addNewCartDetails = new AddNewCartDetails();
 

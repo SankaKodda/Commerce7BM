@@ -35,6 +35,8 @@ public class CustomerDetailExcelRead  {
         IntStream.range(0, rowCount).forEach(
                 rowNum -> {
                     try {
+                        String[] splitText = null;
+
                         // Excel sheet formatter
                         DataFormatter formatter = new DataFormatter();
                         String firstName = formatter.formatCellValue(sheet.getRow(rowNum).getCell(0)).toString();

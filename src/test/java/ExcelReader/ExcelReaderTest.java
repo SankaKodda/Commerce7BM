@@ -150,9 +150,12 @@ public class ExcelReaderTest {
         int rowCount = 0;
 
         // Read Excel file path
-        String excelPath = "./data/TestData2.xlsx";
+        String excelPath = "./data/TestData3.xlsx";
         // Excel Sheet Name
         String sheetName = "OldUserName_ReplacedNewProducts";
+       /* //Excel sheet for new Order
+        String sheetName = "ProductionData";*/
+
         // Create object from AddNewCartDetails Class
         AddNewCartDetails addNewCartDetails = new AddNewCartDetails();
 
@@ -231,6 +234,7 @@ public class ExcelReaderTest {
                         String oderNumber = formatter.formatCellValue(sheet.getRow(rowNum).getCell(4)).toString();
                         String externalOrderNumber = formatter.formatCellValue(sheet.getRow(rowNum).getCell(5)).toString();
                         String date = formatter.formatCellValue(sheet.getRow(rowNum).getCell(6)).toString();
+                        String name = formatter.formatCellValue(sheet.getRow(rowNum).getCell(7)).toString();
                         System.out.println(email);
 
                         String previousEmail = "";
@@ -261,7 +265,7 @@ public class ExcelReaderTest {
                             return;
                         } else {
                             System.out.println("test4");
-                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber,date, driver, nextEmail, nextOrderNumber);
+                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber,date,name, driver, nextEmail, nextOrderNumber);
 
                         }
 

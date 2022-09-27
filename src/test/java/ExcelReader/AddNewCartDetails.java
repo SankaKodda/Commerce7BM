@@ -47,7 +47,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         Thread.sleep(5000);
     }*/
 
-    public void test(String email, String product, String quantity, String price, String orderNumber, String externalOrderNumber,String date, WebDriver driver, String nextEmail, String nextOrderNumber) throws InterruptedException {
+    public void test(String email, String product, String quantity, String price, String orderNumber, String externalOrderNumber, String date, String name, WebDriver driver, String nextEmail, String nextOrderNumber) throws InterruptedException {
         /*int elementNum;
         Thread.sleep(7000);
 
@@ -141,7 +141,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         selectCarrier();
         enterTrackingNumber(orderNumber);
         addFulfillButton();
-        orderNote(externalOrderNumber,date);
+        orderNote(externalOrderNumber,date,name);
         addNoteButton();
     }
 
@@ -264,10 +264,11 @@ public class AddNewCartDetails extends ExcelReaderTest {
         Thread.sleep(5000);
     }
 
-    public static void orderNote(String externalOrderNumber,String date) throws InterruptedException {
+    public static void orderNote(String externalOrderNumber, String date, String name) throws InterruptedException {
         driver.findElement(By.xpath("//textarea[@id='content']")).clear();
-        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys(externalOrderNumber+"\n");
-        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys(date);
+        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys("Name          : "+name+"\n");
+        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys("|Order Number : "+externalOrderNumber+"\n");
+        driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys("|Date         : "+date);
         System.out.println("Add Order Note");
         Thread.sleep(5000);
     }

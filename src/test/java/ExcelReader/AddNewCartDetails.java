@@ -13,40 +13,11 @@ public class AddNewCartDetails extends ExcelReaderTest {
     public static void main(String[] args) throws InterruptedException, IOException {
         loginNExcelRead();
 //        addProduct();
-
         String price = null;
         String quantity = null;
         String product = null;
         addProduct(driver, product, quantity, price);
     }
-
-   /*private static void addProduct() throws InterruptedException {
-        String product = null;
-        String quantity = null;
-        String price = null;
-        driver.findElement(By.id("productVariantInlineSearch")).clear();
-        driver.findElement(By.id("productVariantInlineSearch")).sendKeys(product);
-
-        Thread.sleep(5000);
-
-        //Add Quantity
-        driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn jDKUna kUdrlC']")).clear();
-        driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn jDKUna kUdrlC']")).sendKeys(quantity);
-
-        Thread.sleep(5000);
-
-        //Add Price
-        driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn jDKUna jGqRAO'])[2]")).clear();
-        driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn jDKUna jGqRAO'])[2]")).sendKeys(price);
-
-        Thread.sleep(5000);
-
-        //Click on Select Button
-        driver.findElement(By.xpath("//span[text()='Select']")).click();
-
-        Thread.sleep(5000);
-    }*/
-
     public void test(String email, String product, String quantity, String price, String orderNumber, String externalOrderNumber, String date, String name, WebDriver driver, String nextEmail, String nextOrderNumber) throws InterruptedException {
         clickCancelDefaultSalesPerson();
         clickSalesPerson();
@@ -65,7 +36,6 @@ public class AddNewCartDetails extends ExcelReaderTest {
         orderNote(externalOrderNumber, date, name);
         addNoteButton();
     }
-
     public static void addProduct(WebDriver driver, String product, String quantity, String price) throws InterruptedException {
         searchOderItem(product);
         addQuantity(quantity);
@@ -73,7 +43,6 @@ public class AddNewCartDetails extends ExcelReaderTest {
         selectButton();
         addCount++;
     }
-
     public static void alternativeButton() throws InterruptedException {
         try {
             driver.findElement(By.xpath("//span[text()='Add Alternate Tender']")).click();
@@ -83,7 +52,6 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
         }
     }
-
     public static void tenderType() throws InterruptedException {
         try {
             Thread.sleep(5000);
@@ -94,7 +62,6 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
         Thread.sleep(5000);
     }
-
     public static void addTender() throws InterruptedException {
         try {
             driver.findElement(By.xpath("//span[text()='Add Tender']")).click();

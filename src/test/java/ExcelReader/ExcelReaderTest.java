@@ -163,20 +163,6 @@ public class ExcelReaderTest {
         XSSFSheet sheet = workbook.getSheet(sheetName);
         // get the count of rows in the sheet
         rowCount = sheet.getPhysicalNumberOfRows();
-        /*// Open Browser
-//        System.setProperty("webdriver.chrome.driver","C:\\Users\\SankaKodda\\Downloads\\Commerce7BM\\Commerce7BM\\chromedriver_win32\\chromedriver.exe");
-//        WebDriver driver = new ChromeDriver();
-
-//        DesiredCapabilities caps = new DesiredCapabilities();
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("incognito");
-//        caps.setCapability(ChromeOptions.CAPABILITY, options);
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver(options);
-//        driver = new ChromeDriver();
-
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();*/
         openBrowser();
         openURL();
         maximizeBrowser();
@@ -184,13 +170,6 @@ public class ExcelReaderTest {
         enterValidPassword();
         clickLogin();
         login = true;
-
-        /*//Click on Login BUtton
-        driver.findElement(By.xpath("//span[text()='Login']")).click();
-        System.out.println();
-
-        Thread.sleep(5000);*/
-
 
         //Click on Store Tab
         driver.findElement(By.xpath("(//a[@class='sc-gFGZVQ fqiyHI'])[2]")).click();
@@ -256,7 +235,6 @@ public class ExcelReaderTest {
 
                         Thread.sleep(4000);
 //                        newOrder();
-
                         //Click on Store Tab
                         driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
                         System.out.println("click store button");

@@ -7,8 +7,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
 import java.util.stream.IntStream;
@@ -165,7 +163,7 @@ public class ExcelReaderTest {
         XSSFSheet sheet = workbook.getSheet(sheetName);
         // get the count of rows in the sheet
         rowCount = sheet.getPhysicalNumberOfRows();
-        // Open Browser
+        /*// Open Browser
 //        System.setProperty("webdriver.chrome.driver","C:\\Users\\SankaKodda\\Downloads\\Commerce7BM\\Commerce7BM\\chromedriver_win32\\chromedriver.exe");
 //        WebDriver driver = new ChromeDriver();
 
@@ -178,33 +176,20 @@ public class ExcelReaderTest {
 //        driver = new ChromeDriver();
 
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-
-        // Open URL
-        driver.get("https://borough-markets.admin.platform.commerce7.com/login");
-
-        // Maximise the Browser
-        driver.manage().window().maximize();
-
-        // Enter Valid Username
-        driver.findElement(By.id("email")).clear();
-        driver.findElement(By.id("email")).sendKeys("timalka@fh.technology");
-        System.out.println("Enter Valid Username");
-
-        Thread.sleep(5000);
-
-        //Enter Valid Password
-        driver.findElement(By.id("password")).clear();
-        driver.findElement(By.id("password")).sendKeys("Timalka123");
-        System.out.println("Enter Valid Password");
-        Thread.sleep(5000);
-
+        driver = new ChromeDriver();*/
+        openBrowser();
+        openURL();
+        maximizeBrowser();
+        enterValidEmail();
+        enterValidPassword();
+        clickLogin();
         login = true;
-        //Click on Login BUtton
+
+        /*//Click on Login BUtton
         driver.findElement(By.xpath("//span[text()='Login']")).click();
         System.out.println();
 
-        Thread.sleep(5000);
+        Thread.sleep(5000);*/
 
 
         //Click on Store Tab
@@ -265,7 +250,7 @@ public class ExcelReaderTest {
                             return;
                         } else {
                             System.out.println("test4");
-                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber,date,name, driver, nextEmail, nextOrderNumber);
+                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber, date, name, driver, nextEmail, nextOrderNumber);
 
                         }
 
@@ -290,10 +275,12 @@ public class ExcelReaderTest {
         );
         driver.quit();
     }
+
     public static void newOrder() throws InterruptedException {
         storeTab();
         addNewButton();
     }
+
     public static void excelReader() {
 
     }
@@ -316,7 +303,6 @@ public class ExcelReaderTest {
         // Open Browser
         /*System.setProperty("webdriver.chrome.driver","D:\\Commerce7BM\\driver\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();*/
-
 //        DesiredCapabilities caps = new DesiredCapabilities();
 //        ChromeOptions options = new ChromeOptions();
 //        options.addArguments("incognito");
@@ -329,8 +315,14 @@ public class ExcelReaderTest {
     }
 
     public static void openURL() {
-        // Open URL
-        driver.get("https://borough-markets.admin.platform.commerce7.com/login");
+        try {
+            // Open URL
+            driver.get("https://borough-markets.admin.platform.commerce7.com/login");
+            Thread.sleep(5000);
+        } catch (Exception e) {
+
+        }
+
     }
 
     public static void maximizeBrowser() {
@@ -338,7 +330,7 @@ public class ExcelReaderTest {
         driver.manage().window().maximize();
     }
 
-    public static void validEmail() throws InterruptedException {
+    public static void enterValidEmail() throws InterruptedException {
         // Enter Valid Username
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("timalka@fh.technology");
@@ -347,7 +339,7 @@ public class ExcelReaderTest {
         Thread.sleep(5000);
     }
 
-    public static void validPassword() throws InterruptedException {
+    public static void enterValidPassword() throws InterruptedException {
         //Enter Valid Password
         driver.findElement(By.id("password")).clear();
         driver.findElement(By.id("password")).sendKeys("Timalka123");
@@ -361,7 +353,6 @@ public class ExcelReaderTest {
         //Click on Login BUtton
         driver.findElement(By.xpath("//span[text()='Login']")).click();
         System.out.println();
-
         Thread.sleep(5000);
     }
 

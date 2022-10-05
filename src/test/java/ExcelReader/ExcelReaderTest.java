@@ -151,8 +151,8 @@ public class ExcelReaderTest {
         String excelPath = "./data/TestData3.xlsx";
         // Excel Sheet Name
         String sheetName = "OldUserName_ReplacedNewProducts";
-       /* //Excel sheet for new Order
-        String sheetName = "ProductionData";*/
+        //Excel sheet for new Order
+//        String sheetName = "NewData";
 
         // Create object from AddNewCartDetails Class
         AddNewCartDetails addNewCartDetails = new AddNewCartDetails();
@@ -170,15 +170,21 @@ public class ExcelReaderTest {
         enterValidPassword();
         clickLogin();
         login = true;
-
+        Thread.sleep(5000);
         //Click on Store Tab
-        driver.findElement(By.xpath("(//a[@class='sc-gFGZVQ fqiyHI'])[2]")).click();
+        System.out.println("Clicking Store");
+//        driver.findElement(By.xpath("(//a[@class='sc-gGvHcT eIbnao'][2])")).click();
+//        driver.findElement(By.xpath("(//a[@class='sc-gGvHcT eIbnao'][2])")).click();
+//        driver.findElement(By.xpath("(//a[@class='sc-gGvHcT eIbnao'])[2]")).click();
+        driver.findElement(By.xpath("//a[text()='Store']")).click();
 //        class="sc-gFGZVQ fqiyHI"
 //        driver.findElement(By.xpath("(//a[@class=\"sc-gFGZVQ fqiyHI undefined active active\"]")).click();
         Thread.sleep(5000);
         System.out.println("Click on Store Tab");
         //Click on Add New Button
-        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+//        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+//        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
+        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
         System.out.println("Click on Add New Button");
         Thread.sleep(7000);
 //        newOrder();
@@ -236,14 +242,16 @@ public class ExcelReaderTest {
                         Thread.sleep(4000);
 //                        newOrder();
                         //Click on Store Tab
-                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
+//                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
+                        driver.findElement(By.xpath("//a[@class='sc-gGvHcT eIbnao undefined active active']")).click();
                         System.out.println("click store button");
                         Thread.sleep(5000);
 //
                         //Click on Add New Order Button
 //                            driver.findElement(By.xpath("//div[@class='sc-bgA-dc eafPRL']")).click();
                         //a[@class='sc-kDDrLX crBOCu']
-                        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+//                        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+                        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
                         System.out.println("click add new button");
                         Thread.sleep(7000);
                     } catch (InterruptedException e) {

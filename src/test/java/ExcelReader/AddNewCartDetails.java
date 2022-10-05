@@ -18,10 +18,12 @@ public class AddNewCartDetails extends ExcelReaderTest {
         String product = null;
         addProduct(driver, product, quantity, price);
     }
+
     public void test(String email, String product, String quantity, String price, String orderNumber, String externalOrderNumber, String date, String name, WebDriver driver, String nextEmail, String nextOrderNumber) throws InterruptedException {
         clickCancelDefaultSalesPerson();
         clickSalesPerson();
         selectSalesPerson();
+        saveSelectedSalesPerson();
         clickShippingGroundPriceEditButton();
         overridePriceChange();
         clickSaveShipping();
@@ -36,6 +38,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         orderNote(externalOrderNumber, date, name);
         addNoteButton();
     }
+
     public static void addProduct(WebDriver driver, String product, String quantity, String price) throws InterruptedException {
         searchOderItem(product);
         addQuantity(quantity);
@@ -43,6 +46,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         selectButton();
         addCount++;
     }
+
     public static void alternativeButton() throws InterruptedException {
         try {
             driver.findElement(By.xpath("//span[text()='Add Alternate Tender']")).click();
@@ -52,6 +56,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
         }
     }
+
     public static void tenderType() throws InterruptedException {
         try {
             Thread.sleep(5000);
@@ -62,6 +67,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
         Thread.sleep(5000);
     }
+
     public static void addTender() throws InterruptedException {
         try {
             driver.findElement(By.xpath("//span[text()='Add Tender']")).click();
@@ -75,7 +81,8 @@ public class AddNewCartDetails extends ExcelReaderTest {
     //SALES ASSOCIATE
     public static void clickCancelDefaultSalesPerson() throws InterruptedException {
         try {
-            driver.findElement(By.xpath("//button[@class='sc-jGprRt cCQNDD']")).click();
+            //driver.findElement(By.xpath("//button[@class='sc-jGprRt cCQNDD']")).click();
+            driver.findElement(By.xpath("//button[@class='sc-jGNhvO fQJosH']")).click();
             System.out.println("Clear Sales person default");
             Thread.sleep(5000);
         } catch (Exception e) {
@@ -85,7 +92,8 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void clickSalesPerson() throws InterruptedException {
         try {
-            driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn eVpJmr jGqRAO']")).click();
+            //driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn eVpJmr jGqRAO']")).click();
+            driver.findElement(By.xpath("//input[@class='sc-kgTSHT sc-jcMfQk edBmt epwzPR']")).click();
             System.out.println("clicked sales person input field");
             Thread.sleep(5000);
         } catch (Exception e) {
@@ -100,6 +108,16 @@ public class AddNewCartDetails extends ExcelReaderTest {
             //driver.findElement(By.xpath("//span[text()='Cellar Door']")).click();
             System.out.println("Select Sales Person ");
             //Asher de Silva
+            Thread.sleep(5000);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void saveSelectedSalesPerson() throws InterruptedException {
+        try {
+//driver.findElement(By.xpath("(//button[@class='sc-cmYsgE jPbITj'])[1]")).click();
+            driver.findElement(By.xpath("(//button[@class='sc-kDvujY jsTXSv'])[2]")).click();
             Thread.sleep(5000);
         } catch (Exception e) {
 
@@ -144,7 +162,8 @@ public class AddNewCartDetails extends ExcelReaderTest {
         try {
             int elementNum;
             elementNum = (addCount * 2) + 4;
-            driver.findElement(By.xpath("(//button[@class=\'sc-kDDrLX crBOCu\'])")).click();
+//            driver.findElement(By.xpath("(//button[@class=\'sc-kDDrLX crBOCu\'])")).click();
+            driver.findElement(By.xpath("(//button[@class='sc-kDvujY jsTXSv'])[1]")).click();
             System.out.println("Click on Charge Button");
             Thread.sleep(5000);
         } catch (Exception e) {
@@ -154,7 +173,8 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void fulfillmentButton() throws InterruptedException {
         try {
-            driver.findElement(By.xpath("//button[@class='sc-kDDrLX crBOCu']")).click();
+//            driver.findElement(By.xpath("//button[@class='sc-kDDrLX crBOCu']")).click();
+            driver.findElement(By.xpath("//button[@class='sc-kDvujY jsTXSv']")).click();
             System.out.println("Click on Add Fulfillment Button");
             Thread.sleep(5000);
         } catch (Exception e) {
@@ -200,9 +220,10 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void addQuantity(String quantity) throws InterruptedException {
         try {
-            driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH kUdrlC']")).clear();
-            driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH kUdrlC']")).sendKeys(quantity);
-//        sc-fejtnb eGZlbd
+            /*driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH kUdrlC']")).clear();
+            driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH kUdrlC']")).sendKeys(quantity);*/
+            driver.findElement(By.xpath("//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl gqNjnZ']")).clear();
+            driver.findElement(By.xpath("//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl gqNjnZ']")).sendKeys(quantity);
             System.out.println("Add Quantity");
             Thread.sleep(5000);
         } catch (Exception e) {
@@ -212,8 +233,11 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void addPrice(String price) throws InterruptedException {
         try {
-            driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[2]")).clear();
-            driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[2]")).sendKeys(price);
+            /*driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[2]")).clear();
+            driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[2]")).sendKeys(price);*/
+            driver.findElement(By.xpath("(//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl epwzPR'])[2]")).clear();
+            driver.findElement(By.xpath("(//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl epwzPR'])[2]")).sendKeys(price);
+
             System.out.println("Add Price");
             Thread.sleep(5000);
         } catch (Exception e) {
@@ -239,8 +263,10 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void searchCustomer(String email) throws InterruptedException {
         try {
-            driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[1]")).clear();
-            driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[1]")).sendKeys(email);
+            /*driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[1]")).clear();
+            driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[1]")).sendKeys(email);*/
+            driver.findElement(By.xpath("(//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl epwzPR'])[1]")).clear();
+            driver.findElement(By.xpath("(//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl epwzPR'])[1]")).sendKeys(email);
             System.out.println("Search Customer");
             Thread.sleep(7000);
         } catch (Exception e) {
@@ -250,7 +276,9 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
     public static void selectCustomer() throws InterruptedException {
         try {
-            driver.findElement(By.xpath("//span[@class='sc-gKXOVf dvlemO']")).click();
+//            driver.findElement(By.xpath("//span[@class='sc-gKXOVf dvlemO']")).click();
+            driver.findElement(By.xpath("//span[@class='sc-gKPRtg eNJsZr']")).click();
+
             System.out.println("Click on Selected Customer");
 //        driver.findElement(By.xpath("//span[@class='sc-cmYsgE jPbITj']")).click();
             Thread.sleep(5000);
@@ -287,6 +315,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         try {
             //Click on Add Fulfillment Button
             driver.findElement(By.xpath("//span[text()='Add Fulfillment']")).click();
+//            driver.findElement(By.xpath("//button[@class='sc-kDvujY jsTXSv']")).click();
             System.out.println("Click on Add Fulfillment Button");
             Thread.sleep(5000);
         } catch (Exception e) {

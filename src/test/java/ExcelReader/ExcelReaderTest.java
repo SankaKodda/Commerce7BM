@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 public class ExcelReaderTest extends Report {
     static WebDriver driver;
     static boolean login;
+    static int rowCount = 0;
     public static Report report = new Report();
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -25,9 +26,8 @@ public class ExcelReaderTest extends Report {
 
     public static void loginNExcelRead() throws InterruptedException, IOException {
         report.createReport("test_OrderPlacingReport");
-        int rowCount = 0;
-
-        // Read Excel file path
+//        int rowCount = 0;
+       /* // Read Excel file path
         String excelPath = "./data/TestData3.xlsx";
         // Excel Sheet Name
 //        String sheetName = "OldUserName_ReplacedNewProducts";
@@ -42,7 +42,7 @@ public class ExcelReaderTest extends Report {
         // Select the related sheet
         XSSFSheet sheet = workbook.getSheet(sheetName);
         // get the count of rows in the sheet
-        rowCount = sheet.getPhysicalNumberOfRows();
+        rowCount = sheet.getPhysicalNumberOfRows();*/
         openBrowser();
         openURL();
         maximizeBrowser();
@@ -60,14 +60,78 @@ public class ExcelReaderTest extends Report {
 //        driver.findElement(By.xpath("(//a[@class=\"sc-gFGZVQ fqiyHI undefined active active\"]")).click();
         Thread.sleep(5000);
         System.out.println("Click on Store Tab");
+
         //Click on Add New Button
 //        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
 //        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
-        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
+//        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
+        driver.findElement(By.xpath("//div[@class='sc-fztKhi gLbRQg']")).click();
+
         System.out.println("Click on Add New Button");
         Thread.sleep(7000);
 //        newOrder();
+        addNewOrderButton();
+        excelReader();
 
+        driver.quit();
+    }
+
+    public static void afterDetailAddingButtonClicks() throws InterruptedException {
+        try {
+            //Click on Store Tab
+//                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
+            driver.findElement(By.xpath("//a[@class='sc-gGvHcT eIbnao undefined active active']")).click();
+            System.out.println("click store button");
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            /*//Click on Store Tab
+//                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
+            driver.findElement(By.xpath("//a[@class='sc-gGvHcT eIbnao undefined active active']")).click();
+            System.out.println("click store button");
+            Thread.sleep(5000);*/
+        }
+
+
+    }
+    public static void addNewOrderButton(){
+        try {
+            //
+            //Click on Add New Order Button
+//                            driver.findElement(By.xpath("//div[@class='sc-bgA-dc eafPRL']")).click();
+            //a[@class='sc-kDDrLX crBOCu']
+//                        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+            driver.findElement(By.xpath("//div[@class='sc-fztKhi gLbRQg']")).click();
+            System.out.println("click add new button");
+            Thread.sleep(7000);
+        }catch (Exception e){
+
+        }
+    }
+
+    public static void newOrder() throws InterruptedException {
+        storeTab();
+        addNewButton();
+    }
+
+    public static void excelReader() throws IOException {
+
+        addNewOrderButton();
+        // Read Excel file path
+        String excelPath = "./data/TestData5.xlsx";
+        // Excel Sheet Name
+//        String sheetName = "OldUserName_ReplacedNewProducts";
+        //Excel sheet for new Order
+        String sheetName = "Sheet2";
+
+        // Create object from AddNewCartDetails Class
+        AddNewCartDetails addNewCartDetails = new AddNewCartDetails();
+
+        // Read Excel file
+        XSSFWorkbook workbook = new XSSFWorkbook(excelPath);
+        // Select the related sheet
+        XSSFSheet sheet = workbook.getSheet(sheetName);
+        // get the count of rows in the sheet
+        rowCount = sheet.getPhysicalNumberOfRows();
         // loop all rows using rowCount
         // rowCount --> count of the rows
         // x --> index of the iteration
@@ -100,7 +164,7 @@ public class ExcelReaderTest extends Report {
                             System.out.println();
                         } else {
                             System.out.println("Test2");
-                            addNewCartDetails.addEmail(driver, email);
+                            addNewCartDetails.addEmail(driver, email,oderNumber);
                             addNewCartDetails.addProduct(driver, product, quantity, price);
                             System.out.println();
                         }
@@ -114,50 +178,25 @@ public class ExcelReaderTest extends Report {
                             return;
                         } else {
                             System.out.println("test4");
-                            addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber, date, name, driver, nextEmail, nextOrderNumber);
+                            try {
+                                addNewCartDetails.test(email, product, quantity, price, oderNumber, externalOrderNumber, date, name, driver, nextEmail, nextOrderNumber);
+                            } catch (Exception IO) {
+                                afterDetailAddingButtonClicks();
+                                addNewOrderButton();
+                            }
 
                         }
                         Thread.sleep(4000);
-                        report.test.log(LogStatus.PASS, "-------------------------------------------------------------");
                         endReporting();
 //                        newOrder();
-                        try{
-                            //Click on Store Tab
-//                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
-                            driver.findElement(By.xpath("//a[@class='sc-gGvHcT eIbnao undefined active active']")).click();
-                            System.out.println("click store button");
-                            Thread.sleep(5000);
-                        }catch (Exception e){
-                            //Click on Store Tab
-//                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
-                            driver.findElement(By.xpath("//a[@class='sc-gGvHcT eIbnao undefined active active']")).click();
-                            System.out.println("click store button");
-                            Thread.sleep(5000);
-                        }
-
-//
-                        //Click on Add New Order Button
-//                            driver.findElement(By.xpath("//div[@class='sc-bgA-dc eafPRL']")).click();
-                        //a[@class='sc-kDDrLX crBOCu']
-//                        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
-                        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
-                        System.out.println("click add new button");
-                        Thread.sleep(7000);
+                        afterDetailAddingButtonClicks();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
         );
-        driver.quit();
-    }
-
-    public static void newOrder() throws InterruptedException {
-        storeTab();
-        addNewButton();
-    }
-
-    public static void excelReader() {
-
     }
 
     public static void storeTab() throws InterruptedException {
@@ -194,6 +233,9 @@ public class ExcelReaderTest extends Report {
         try {
             // Open URL
             driver.get("https://borough-markets.admin.platform.commerce7.com/login");
+//            driver.get("https://admin.platform.commerce7.com/login?redirectTo=%2Ftenant");
+            //LIVEE
+//            driver.get("https://kay-brothers.admin.platform.commerce7.com/");
             Thread.sleep(5000);
         } catch (Exception e) {
 
@@ -210,6 +252,7 @@ public class ExcelReaderTest extends Report {
         // Enter Valid Username
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("timalka@fh.technology");
+//        driver.findElement(By.id("email")).sendKeys("thimalka@hyperspacehub.com");
         System.out.println("Enter Valid Username");
 
         Thread.sleep(5000);
@@ -219,6 +262,7 @@ public class ExcelReaderTest extends Report {
         //Enter Valid Password
         driver.findElement(By.id("password")).clear();
         driver.findElement(By.id("password")).sendKeys("Timalka123");
+//        driver.findElement(By.id("password")).sendKeys("Timalka.9597");
         System.out.println("Enter Valid Password");
         Thread.sleep(5000);
 

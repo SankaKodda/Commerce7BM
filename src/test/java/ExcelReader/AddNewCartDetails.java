@@ -11,6 +11,8 @@ import java.io.IOException;
 public class AddNewCartDetails extends ExcelReaderTest {
 
     static int addCount = 0;
+    static boolean shippingAddress;
+    static boolean userFound;
 
     public static void main(String[] args) throws InterruptedException, IOException {
         loginNExcelRead();
@@ -21,29 +23,33 @@ public class AddNewCartDetails extends ExcelReaderTest {
         addProduct(driver, product, quantity, price);
     }
 
-    public void test(String email, String product, String quantity, String price, String orderNumber, String externalOrderNumber, String date, String name, WebDriver driver, String nextEmail, String nextOrderNumber) throws InterruptedException {
+    public void test(String email, String product, String quantity, String price, String orderNumber, String externalOrderNumber, String date, String name, WebDriver driver, String nextEmail, String nextOrderNumber) throws InterruptedException, IOException {
 
         /*clickCancelDefaultSalesPerson();
         clickSalesPerson();
         selectSalesPerson();
         saveSelectedSalesPerson();*/
         clickShippingGroundPriceEditButton(email);
-        overridePriceChange();
-        clickSaveShipping();
-        alternativeButton();
-        tenderType();
-        addTender();
-        chargeButton();
-        clickEditButtonSalesPerson();
-        clickCancelSalesPerson();
-        selectSalesPerson();
-        saveSelectedSalesPerson();
-        fulfillmentButton();
-        selectCarrier();
-        enterTrackingNumber(orderNumber);
-        addFulfillButton();
-        orderNote(externalOrderNumber, date, name);
-        addNoteButton();
+        if (shippingAddress) {
+            overridePriceChange();
+            clickSaveShipping();
+            alternativeButton();
+            tenderType();
+            addTender();
+            chargeButton();
+            clickEditButtonSalesPerson();
+            clickCancelSalesPerson();
+            selectSalesPersonEnterArea();
+            selectSalesPerson();
+            saveSelectedSalesPerson();
+            fulfillmentButton();
+            selectCarrier();
+            enterTrackingNumber(orderNumber);
+            addFulfillButton();
+            orderNote(externalOrderNumber, date, name);
+            addNoteButton();
+        }
+
     }
 
     public static void addProduct(WebDriver driver, String product, String quantity, String price) throws InterruptedException {
@@ -67,7 +73,8 @@ public class AddNewCartDetails extends ExcelReaderTest {
     public static void tenderType() throws InterruptedException {
         try {
             Thread.sleep(5000);
-            Select dropdown = new Select(driver.findElement(By.xpath("//select[@class='sc-kgflAQ sc-hlnMnd kdDXqH libHtu']")));
+//            driver.findElement(By.xpath("(//select[@class='sc-kgTSHT sc-hlLBRy bnfNwl erFRtJ'])[2]")).click();
+            Select dropdown = new Select(driver.findElement(By.xpath("(//select[@class='sc-kgTSHT sc-hlLBRy bnfNwl erFRtJ'])[2]")));
             dropdown.selectByVisibleText("External");
         } catch (Exception e) {
             System.out.println(e);
@@ -111,6 +118,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
             report.test.log(LogStatus.FAIL, "Sales Person Field Select Unsuccessfully");
         }
     }
+
     public static void clickEditButtonSalesPerson() throws InterruptedException {
         try {
             //driver.findElement(By.xpath("//input[@class='sc-kgflAQ sc-jdAMXn eVpJmr jGqRAO']")).click();
@@ -123,6 +131,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
             report.test.log(LogStatus.FAIL, "Sales Person Edit Button Select Unsuccessfully");
         }
     }
+
     public static void clickCancelSalesPerson() throws InterruptedException {
         try {
             //driver.findElement(By.xpath("//button[@class='sc-jGprRt cCQNDD']")).click();
@@ -135,7 +144,19 @@ public class AddNewCartDetails extends ExcelReaderTest {
             report.test.log(LogStatus.FAIL, "Sales Person Removed Unsuccessfully");
         }
     }
+    public static void selectSalesPersonEnterArea(){
 
+        try {
+            //driver.findElement(By.xpath("//button[@class='sc-jGprRt cCQNDD']")).click();
+            driver.findElement(By.xpath("(//div[@class='sc-cabOPr oZYgr'])[2]")).click();
+            System.out.println("Clear Sales person ");
+            report.test.log(LogStatus.PASS, "Successfully Clicked Sales Person Text Area");
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            report.test.log(LogStatus.FAIL, "Sales Person Area Clicked Unsuccessfully");
+        }
+    }
 
 
     public static void selectSalesPerson() throws InterruptedException {
@@ -143,7 +164,8 @@ public class AddNewCartDetails extends ExcelReaderTest {
 //driver.findElement(By.xpath("(//button[@class='sc-cmYsgE jPbITj'])[1]")).click();
             String salesPerson = ("Asher de Silva");
             driver.findElement(By.xpath("//span[text()='Asher de Silva']")).click();
-            //driver.findElement(By.xpath("//span[text()='Cellar Door']")).click();
+//            driver.findElement(By.xpath("(//span[text()='Cellar Door'])[3]")).click();
+//            driver.findElement(By.xpath("(//button[@class='sc-febvLc eRiZzm'])[6]")).click();
             System.out.println("Select Sales Person ");
             report.test.log(LogStatus.PASS, "Successfully Selected Sales Person ");
             //Asher de Silva
@@ -167,7 +189,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
     }
 
     //SHIPPING PRICE
-    public static void clickShippingGroundPriceEditButton(String email) throws InterruptedException {
+    public static void clickShippingGroundPriceEditButton(String email) throws InterruptedException, IOException {
         try {
 //            driver.findElement(By.xpath("(//button[@class='sc-gsnTZi jsiNjf'])[3]")).click();
 //            driver.findElement(By.xpath("(//button[@class='sc-kDvujY dxfoJm'])[1]")).click();
@@ -175,20 +197,25 @@ public class AddNewCartDetails extends ExcelReaderTest {
             report.test.log(LogStatus.PASS, "Successfully Shipping Ground Price Update Button Clicked ");
 //        driver.findElement(By.xpath("(//span[text()='Add Note'])[1]")).click();
             System.out.println("Shipping ground edit button click");
+            shippingAddress=true;
             Thread.sleep(5000);
         } catch (Exception e) {
             e.printStackTrace();
+            shippingAddress=false;
             report.test.log(LogStatus.FAIL, "Shipping Ground Price Update Button Clicked Unsuccessfully");
-            report.test.log(LogStatus.FAIL, "Shipping Address Not Found For Customer Unsuccessfully");
-            report.test.log(LogStatus.FAIL, "Customer Order Placed Unsuccessfully CustomerMail :- "+email);
-            report.test.log(LogStatus.FAIL, "-------------------------------------------------------------");
+            report.test.log(LogStatus.FAIL, "Shipping Address Not Found For Customer");
+            report.test.log(LogStatus.FATAL, "Customer Order Placed Unsuccessfully CustomerMail :- " + email);
+
             System.out.println("Click again Store tab");
             //Click on Store Tab
 //                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
             driver.findElement(By.xpath("//a[@class='sc-gGvHcT eIbnao undefined active']")).click();
             System.out.println("click store button");
             Thread.sleep(5000);
-            excelReader();
+//            afterDetailAddingButtonClicks();
+            //ClickADDNEW
+            driver.findElement(By.xpath("//div[@class='sc-fztKhi gLbRQg']")).click();
+            endReporting();
         }
     }
 
@@ -233,6 +260,12 @@ public class AddNewCartDetails extends ExcelReaderTest {
         } catch (Exception e) {
             e.printStackTrace();
             report.test.log(LogStatus.FAIL, "Clicked on Charge Button Unsuccessfully");
+            e.printStackTrace();
+            report.test.log(LogStatus.FAIL, "Clicked on Charge Button Unsuccessfully");
+            report.test.log(LogStatus.FATAL, "Billing Address Or Payment Method Not Included ");
+
+            Thread.sleep(5000);
+            endReporting();
 
         }
     }
@@ -283,12 +316,12 @@ public class AddNewCartDetails extends ExcelReaderTest {
         try {
             driver.findElement(By.id("productVariantInlineSearch")).clear();
             driver.findElement(By.id("productVariantInlineSearch")).sendKeys(product);
-            report.test.log(LogStatus.PASS, "Successfully Search Order Item Entered Item : "+product);
+            report.test.log(LogStatus.PASS, "Successfully Search Order Item Entered Item : " + product);
             System.out.println("Search Order Item");
             Thread.sleep(5000);
         } catch (Exception e) {
             e.printStackTrace();
-            report.test.log(LogStatus.FAIL, "Search Order Item Entered Unsuccessfully - Item : "+product);
+            report.test.log(LogStatus.FAIL, "Search Order Item Entered Unsuccessfully - Item : " + product);
         }
     }
 
@@ -334,26 +367,28 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public void addEmail(WebDriver driver, String email) throws InterruptedException {
-        searchCustomer(email);
+    public void addEmail(WebDriver driver, String email,String oderNumber) throws InterruptedException, IOException {
+        searchCustomer(email,oderNumber);
         selectCustomer(email);
 
     }
 
-    public static void searchCustomer(String email) throws InterruptedException {
+    public static void searchCustomer(String email,String oderNumber) throws InterruptedException {
         try {
-            report.createReport("test_CustomersProcessDetails_"+email);
+            addNewOrderButton();
+            report.createReport("test_CustomersProcessDetails_" + email+"orderNumber_"+oderNumber);
+
             /*driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[1]")).clear();
             driver.findElement(By.xpath("(//input[@class='sc-kgflAQ sc-jdAMXn kdDXqH jGqRAO'])[1]")).sendKeys(email);*/
             driver.findElement(By.xpath("(//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl epwzPR'])[1]")).clear();
             driver.findElement(By.xpath("(//input[@class='sc-kgTSHT sc-jcMfQk bnfNwl epwzPR'])[1]")).sendKeys(email);
-            report.test.log(LogStatus.PASS, "Successfully Search Customer Email Entered - Customer :- "+email);
+            report.test.log(LogStatus.PASS, "Successfully Search Customer Email Entered - Customer :- " + email);
             System.out.println("Search Customer");
             Thread.sleep(7000);
         } catch (Exception e) {
             e.printStackTrace();
-            report.test.log(LogStatus.FAIL, "Search Customer Email Entered Unsuccessfully :- "+email);
-            report.test.log(LogStatus.FAIL,"Customer Not Found :- "+email);
+            report.test.log(LogStatus.FAIL, "Search Customer Email Entered Unsuccessfully :- " + email);
+            report.test.log(LogStatus.FAIL, "Customer Not Found :- " + email);
             /*System.out.println("Click again Store tab");
             //Click on Store Tab
 //                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
@@ -368,17 +403,16 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public static void selectCustomer(String email) throws InterruptedException {
+    public static void selectCustomer(String email) throws InterruptedException, IOException {
         try {
 //            driver.findElement(By.xpath("//span[@class='sc-gKXOVf dvlemO']")).click();
-            String customerName =driver.findElement(By.xpath("//span[@class='sc-gKPRtg eNJsZr']")).getText();
-            System.out.println("Get Customer Name : "+customerName);
+            String customerName = driver.findElement(By.xpath("//span[@class='sc-gKPRtg eNJsZr']")).getText();
+            System.out.println("Get Customer Name : " + customerName);
             String noResultFound = "No results found";
-
-            if(customerName == noResultFound ){
-                report.test.log(LogStatus.FAIL, "Customer Email Entered Selected Unsuccessfully - Customer :- "+email);
-                report.test.log(LogStatus.FAIL, "CUSTOMER IS NOT REGISTERS - Customer Email :- "+email);
-                report.test.log(LogStatus.FAIL, "___________________________________________________________________");
+            if (customerName.equals(noResultFound)) {
+                report.test.log(LogStatus.FAIL, "Customer Email Entered Selected Unsuccessfully - Customer :- " + email);
+                report.test.log(LogStatus.FATAL, "CUSTOMER IS NOT REGISTERS - Customer Email :- " + email);
+                endReporting();
                 System.out.println("Click again Store tab");
                 //Click on Store Tab
 //                        driver.findElement(By.xpath("//a[@class='sc-gFGZVQ fqiyHI undefined active active']")).click();
@@ -387,9 +421,9 @@ public class AddNewCartDetails extends ExcelReaderTest {
                 Thread.sleep(5000);
 
                 Thread.sleep(5000);
-            }else {
+            } else {
                 driver.findElement(By.xpath("//span[@class='sc-gKPRtg eNJsZr']")).click();
-                report.test.log(LogStatus.PASS, "Successfully Selected Customer Email Entered - Customer :- "+email);
+                report.test.log(LogStatus.PASS, "Successfully Selected Customer Email Entered - Customer :- " + email);
                 System.out.println("Click on Selected Customer");
 //        driver.findElement(By.xpath("//span[@class='sc-cmYsgE jPbITj']")).click();
                 Thread.sleep(5000);
@@ -397,7 +431,9 @@ public class AddNewCartDetails extends ExcelReaderTest {
 
         } catch (Exception e) {
             e.printStackTrace();
-            report.test.log(LogStatus.FAIL, "Customer Email Entered Selected Unsuccessfully - Customer :- "+email);
+            report.test.log(LogStatus.FAIL, "Customer Email Entered Selected Unsuccessfully - Customer :- " + email);
+            report.test.log(LogStatus.FATAL,"CUSTOMER NOT REGISTERED..");
+            endReporting();
             excelReader();
         }
     }
@@ -423,10 +459,10 @@ public class AddNewCartDetails extends ExcelReaderTest {
 //        class="sc-kgflAQ sc-bPyhqo kdDXqH bgTskM"
             driver.findElement(By.xpath("//input[@id='shipped.trackingNumbers[0]']")).clear();
             driver.findElement(By.xpath("//input[@id='shipped.trackingNumbers[0]']")).sendKeys(orderNumber);
-            report.test.log(LogStatus.PASS, "Successfully Entered Order Number - OrderNumber : "+orderNumber);
+            report.test.log(LogStatus.PASS, "Successfully Entered Order Number - OrderNumber : " + orderNumber);
         } catch (Exception e) {
             e.printStackTrace();
-            report.test.log(LogStatus.FAIL, "Order Number Entered Unsuccessfully - OrderNumber : "+orderNumber);
+            report.test.log(LogStatus.FAIL, "Order Number Entered Unsuccessfully - OrderNumber : " + orderNumber);
         }
     }
 

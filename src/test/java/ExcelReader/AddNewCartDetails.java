@@ -1,6 +1,5 @@
 package ExcelReader;
 
-import Report.Report;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,20 +32,20 @@ public class AddNewCartDetails extends ExcelReaderTest {
         if (shippingAddress) {
             overridePriceChange();
             clickSaveShipping();
-            alternativeButton();
-            tenderType();
+            clickAlternativeButton();
+            tenderTypeSelect();
             addTender();
-            chargeButton();
+            ClickChargeButton();
             clickEditButtonSalesPerson();
             clickCancelSalesPerson();
             selectSalesPersonEnterArea();
             selectSalesPerson();
             saveSelectedSalesPerson();
-            fulfillmentButton();
+            clickFulfillmentButton();
             selectCarrier();
             enterTrackingNumber(orderNumber);
-            addFulfillButton();
-            orderNote(externalOrderNumber, date, name);
+            clickAddFulfillButton();
+            addOrderNote(externalOrderNumber, date, name);
             addNoteButton();
         }
 
@@ -60,7 +59,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         addCount++;
     }
 
-    public static void alternativeButton() throws InterruptedException {
+    public static void clickAlternativeButton() throws InterruptedException {
         try {
             driver.findElement(By.xpath("//span[text()='Add Alternate Tender']")).click();
             System.out.println();
@@ -70,7 +69,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public static void tenderType() throws InterruptedException {
+    public static void tenderTypeSelect() throws InterruptedException {
         try {
             Thread.sleep(5000);
 //            driver.findElement(By.xpath("(//select[@class='sc-kgTSHT sc-hlLBRy bnfNwl erFRtJ'])[2]")).click();
@@ -248,7 +247,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public static void chargeButton() throws InterruptedException {
+    public static void ClickChargeButton() throws InterruptedException {
         try {
             int elementNum;
             elementNum = (addCount * 2) + 4;
@@ -270,7 +269,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public static void fulfillmentButton() throws InterruptedException {
+    public static void clickFulfillmentButton() throws InterruptedException {
         try {
 //            driver.findElement(By.xpath("//button[@class='sc-kDDrLX crBOCu']")).click();
             driver.findElement(By.xpath("//button[@class='sc-kDvujY jsTXSv']")).click();
@@ -283,7 +282,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public static void orderNote(String externalOrderNumber, String date, String name) throws InterruptedException {
+    public static void addOrderNote(String externalOrderNumber, String date, String name) throws InterruptedException {
         try {
             driver.findElement(By.xpath("//textarea[@id='content']")).clear();
             driver.findElement(By.xpath("//textarea[@id='content']")).sendKeys("Name          : " + name + "\n");
@@ -466,7 +465,7 @@ public class AddNewCartDetails extends ExcelReaderTest {
         }
     }
 
-    public static void addFulfillButton() throws InterruptedException {
+    public static void clickAddFulfillButton() throws InterruptedException {
         try {
             //Click on Add Fulfillment Button
             driver.findElement(By.xpath("//span[text()='Add Fulfillment']")).click();

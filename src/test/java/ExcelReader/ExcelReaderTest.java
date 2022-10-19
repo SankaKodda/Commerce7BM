@@ -51,29 +51,57 @@ public class ExcelReaderTest extends Report {
         clickLogin();
         login = true;
         Thread.sleep(5000);
-        //Click on Store Tab
-        System.out.println("Clicking Store");
-//        driver.findElement(By.xpath("(//a[@class='sc-gGvHcT eIbnao'][2])")).click();
-//        driver.findElement(By.xpath("(//a[@class='sc-gGvHcT eIbnao'])[2]")).click();
-        driver.findElement(By.xpath("//a[text()='Store']")).click();
-//        class="sc-gFGZVQ fqiyHI"
-//        driver.findElement(By.xpath("(//a[@class=\"sc-gFGZVQ fqiyHI undefined active active\"]")).click();
-        Thread.sleep(5000);
-        System.out.println("Click on Store Tab");
 
-        //Click on Add New Button
-//        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
-//        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
-//        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
-        driver.findElement(By.xpath("//div[@class='sc-fztKhi gLbRQg']")).click();
-
-        System.out.println("Click on Add New Button");
-        Thread.sleep(7000);
+        beforeDetailsAddStoreButtonClick();
+        beforeDetailsOrderAddButton();
 //        newOrder();
         addNewOrderButton();
         excelReader();
 
         driver.quit();
+    }
+    public static void openURL() {
+        try {
+            // Open URL
+            driver.get("https://borough-markets.admin.platform.commerce7.com/login");
+//            driver.get("https://admin.platform.commerce7.com/login?redirectTo=%2Ftenant");
+            //LIVEE
+//            driver.get("https://kay-brothers.admin.platform.commerce7.com/");
+            Thread.sleep(5000);
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public static void beforeDetailsAddStoreButtonClick() throws InterruptedException {
+        try {
+            //Click on Store Tab
+            System.out.println("Clicking Store");
+//        driver.findElement(By.xpath("(//a[@class='sc-gGvHcT eIbnao'])[2]")).click();
+            driver.findElement(By.xpath("//a[text()='Store']")).click();
+//        class="sc-gFGZVQ fqiyHI"
+//        driver.findElement(By.xpath("(//a[@class=\"sc-gFGZVQ fqiyHI undefined active active\"]")).click();
+            Thread.sleep(5000);
+            System.out.println("Click on Store Tab");
+        } catch (Exception e) {
+            System.out.println("Click on Store Tab Unsuccessful");
+        }
+    }
+
+    public static void beforeDetailsOrderAddButton() throws InterruptedException {
+        try {
+            //Click on Add New Button
+//        driver.findElement(By.xpath("//a[@class='sc-kDDrLX crBOCu']")).click();
+//        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
+//        driver.findElement(By.xpath("//div[@class='sc-iAbQMe hXpcNJ']")).click();
+//        driver.findElement(By.xpath("//div[@class='sc-fztKhi gLbRQg']")).click();17/10
+            driver.findElement(By.xpath("//div[@class='sc-gVzlyS hugcGX']")).click();
+            System.out.println("Click on Add New Button");
+            Thread.sleep(7000);
+        }catch (Exception e){
+            System.out.println("Click on Add New Button Unsuccessful");
+        }
     }
 
     public static void afterDetailAddingButtonClicks() throws InterruptedException {
@@ -93,7 +121,8 @@ public class ExcelReaderTest extends Report {
 
 
     }
-    public static void addNewOrderButton(){
+
+    public static void addNewOrderButton() {
         try {
             //
             //Click on Add New Order Button
@@ -103,7 +132,7 @@ public class ExcelReaderTest extends Report {
             driver.findElement(By.xpath("//div[@class='sc-fztKhi gLbRQg']")).click();
             System.out.println("click add new button");
             Thread.sleep(7000);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -164,7 +193,7 @@ public class ExcelReaderTest extends Report {
                             System.out.println();
                         } else {
                             System.out.println("Test2");
-                            addNewCartDetails.addEmail(driver, email,oderNumber);
+                            addNewCartDetails.addEmail(driver, email, oderNumber);
                             addNewCartDetails.addProduct(driver, product, quantity, price);
                             System.out.println();
                         }
@@ -190,6 +219,7 @@ public class ExcelReaderTest extends Report {
                         endReporting();
 //                        newOrder();
                         afterDetailAddingButtonClicks();
+                        beforeDetailsOrderAddButton();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -229,19 +259,7 @@ public class ExcelReaderTest extends Report {
         driver = new ChromeDriver();
     }
 
-    public static void openURL() {
-        try {
-            // Open URL
-            driver.get("https://borough-markets.admin.platform.commerce7.com/login");
-//            driver.get("https://admin.platform.commerce7.com/login?redirectTo=%2Ftenant");
-            //LIVEE
-//            driver.get("https://kay-brothers.admin.platform.commerce7.com/");
-            Thread.sleep(5000);
-        } catch (Exception e) {
 
-        }
-
-    }
 
     public static void maximizeBrowser() {
         // Maximise the Browser
